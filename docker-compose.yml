@@ -1,0 +1,18 @@
+services:
+  film-api:
+    build: .
+    image: film-archive-api:latest
+    container_name: film-archive-api
+    ports:
+      - "8000:8000"
+    environment:
+      # SQLite 数据库文件路径（位于挂载卷内，容器重建不丢数据）
+      DB_PATH: /data/film.db
+      HOST: 0.0.0.0
+      PORT: "8000"
+    volumes:
+      - film-data:/data
+    restart: unless-stopped
+
+volumes:
+  film-data:
